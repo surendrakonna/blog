@@ -25,6 +25,8 @@ jobs:
       - uses: borales/actions-yarn@v2.0.0
         with:
           cmd: install
+        run: |
+          yarn global add aglio
       - name: Install PostgreSQL 11 client
         run: |
           sudo apt-get -yqq install libpq-dev
@@ -39,4 +41,5 @@ jobs:
           bundle install --jobs 4 --retry 3
           bundle exec rails db:prepare
           bundle exec rake docs:generate
-          cat doc/api/index.apib
+          aglio -i doc/api/index.apib --theme-template triple -o output.html
+          cat output.html
