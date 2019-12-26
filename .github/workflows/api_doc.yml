@@ -26,8 +26,8 @@ jobs:
         with:
           cmd: install
       - name: Install PostgreSQL 11 client
-      run: |
-        sudo apt-get -yqq install libpq-dev
+        run: |
+          sudo apt-get -yqq install libpq-dev
       - name: Build and run tests
         env:
           RAILS_ENV: test
