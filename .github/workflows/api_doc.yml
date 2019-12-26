@@ -39,4 +39,4 @@ jobs:
           bundle install --jobs 4 --retry 3
           bundle exec rails db:prepare
           bundle exec rake docs:generate
-          cat ./docs/api/index.apib
+          cat doc/api/index.apib
