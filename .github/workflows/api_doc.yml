@@ -8,8 +8,8 @@ jobs:
         image: postgres:11
         ports: ['5432:5432']
         env:
-          DB_USER: postgres
-          DB_PASS: postgres
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -25,13 +25,15 @@ jobs:
       - uses: borales/actions-yarn@v2.0.0
         with:
           cmd: install
+      - name: Install PostgreSQL 11 client
+      run: |
+        sudo apt-get -yqq install libpq-dev
       - name: Build and run tests
         env:
           RAILS_ENV: test
           DB_USER: postgres
           DB_PASS: postgres
         run: |
-          sudo apt-get -yqq install libpq-dev
           gem install bundler
           bundle install --jobs 4 --retry 3
           bundle exec rails db:prepare
