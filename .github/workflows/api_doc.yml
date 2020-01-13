@@ -47,4 +47,4 @@ jobs:
           bundle exec rails db:prepare
           bundle exec rake docs:generate
           aglio -i doc/api/index.apib --theme-template triple -o output.html
-          aws s3 sync output.html s3://blog-api-docs
+          aws s3 sync output.html s3://blog-api-docs/output.html
