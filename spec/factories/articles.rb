@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :articles do
+  factory :article do
     author factory: :user
     title { Faker::Food.dish }
     description { Faker::Food.description }
