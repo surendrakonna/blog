@@ -6,6 +6,6 @@ module ActionPerformer
   end
 
   def render_action_error(action)
-    render json: action.error_response, status: action.error_code
+    render json: action.error_messages, status: action.error_code
   end
 end
