@@ -17,11 +17,7 @@ module Abstract
     end
 
     def authorize!
-      return if !record
-
-      Pundit.authorize(current_user,
-                       record,
-                       self.class.policy_action)
+      true
     end
 
     def perform
@@ -40,7 +36,7 @@ module Abstract
       record.assign_attributes(permitted_params)
       return true if record.save
 
-      fail_with_error(422, self.class.record_type, record.errors)
+      fail_with_error(422, record.class.name.underscore.to_sym, record.errors)
     end
   end
 end
