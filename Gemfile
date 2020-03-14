@@ -16,6 +16,8 @@ gem 'puma', '~> 3.11'
 gem 'bcrypt', '~> 3.1.7'
 gem 'uncouple'
 
+gem 'aws-sdk-s3', '~> 1'
+
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 

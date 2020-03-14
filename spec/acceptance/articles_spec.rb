@@ -39,7 +39,6 @@ resource 'Articles' do
   end
 
   route "/api/articles/:id", "Get Article" do
-    header 'X-ACCESS-TOKEN', :access_token
     parameter :id, "Article ID", type: :integer, example: '123', required: true
 
     get 'Get Article' do
@@ -58,7 +57,6 @@ resource 'Articles' do
   end
 
   route "/api/articles/:id", "Update Article" do
-    header 'X-ACCESS-TOKEN', :access_token
     parameter :id, 'Article id', type: :integer, example: 100, required: true
 
     let(:id) { article.id }
@@ -92,7 +90,6 @@ resource 'Articles' do
   end
 
   route "/api/articles/:id", "Delete Article" do
-    header 'X-ACCESS-TOKEN', :access_token
     parameter :id, 'Article id', type: :integer, example: 100, required: true
 
     let(:article) { FactoryBot.create(:article, author: user) }
