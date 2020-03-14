@@ -41,7 +41,7 @@ jobs:
           DB_USER: postgres
           DB_PASS: postgres
         run: |
-          yarn add aglio
+          yarn global add aglio
           gem install bundler
           bundle install --jobs 4 --retry 3
           bundle exec rails db:prepare
