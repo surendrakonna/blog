@@ -29,8 +29,6 @@ jobs:
         with:
           ruby-version: 2.6.x
       - uses: borales/actions-yarn@v2.0.0
-        with:
-          node-version: '10.x'
       - name: Install PostgreSQL 11 client
         run: |
           sudo apt-get -yqq install libpq-dev
