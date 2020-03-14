@@ -30,7 +30,7 @@ jobs:
           ruby-version: 2.6.x
       - uses: actions/setup-node@v1
         with:
-          node-version: '12.x'
+          node-version: '11.x'
       - name: Install PostgreSQL 11 client
         run: |
           sudo apt-get -yqq install libpq-dev
@@ -40,13 +40,10 @@ jobs:
           DB_HOST: localhost
           DB_USER: postgres
           DB_PASS: postgres
-        # run rspec
         run: |
           gem install bundler
           bundle install --jobs 4 --retry 3
           bundle exec rspec
-        # generate api docs
-        run: |
           npm install -g aglio
           bundle exec rake docs:generate
           aglio -i doc/api/index.apib --theme-template triple -o api_doc.html
