@@ -28,7 +28,9 @@ jobs:
         uses: actions/setup-ruby@v1
         with:
           ruby-version: 2.6.x
-      - uses: borales/actions-yarn@v2.0.0
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
       - name: Install PostgreSQL 11 client
         run: |
           sudo apt-get -yqq install libpq-dev
@@ -39,7 +41,7 @@ jobs:
           DB_USER: postgres
           DB_PASS: postgres
         run: |
-          yarn global add aglio
+          npm install -g aglio
           gem install bundler
           bundle install --jobs 4 --retry 3
           bundle exec rails db:prepare
