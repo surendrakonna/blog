@@ -17,7 +17,7 @@ jobs:
           --health-retries 5
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -40,12 +40,15 @@ jobs:
           DB_HOST: localhost
           DB_USER: postgres
           DB_PASS: postgres
+        # run rspec
         run: |
-          npm install -g aglio
           gem install bundler
           bundle install --jobs 4 --retry 3
-          bundle exec rails db:prepare
+          bundle exec rspec
+        # generate api docs
+        run: |
+          npm install -g aglio
           bundle exec rake docs:generate
-          aglio -i doc/api/index.apib --theme-template triple -o output.html
-          cat api_doc.html
-          aws s3 sync . s3://blog-api-docs --exclude "*" --include "output.html"
+          aglio -i doc/api/index.apib --theme-template triple -o api_doc.html
+          aws s3 sync . s3://blog-api-docs --exclude "*" --include "api_doc.html"
+
