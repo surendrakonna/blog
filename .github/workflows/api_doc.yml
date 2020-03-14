@@ -28,7 +28,7 @@ jobs:
         uses: actions/setup-ruby@v1
         with:
           ruby-version: 2.6.x
-      - uses: actions/setup-node@v1
+      - uses: borales/actions-yarn@v2.0.0
         with:
           node-version: '10.x'
       - name: Install PostgreSQL 11 client
@@ -41,11 +41,11 @@ jobs:
           DB_USER: postgres
           DB_PASS: postgres
         run: |
-          npm install -g aglio
+          yarn add aglio
           gem install bundler
           bundle install --jobs 4 --retry 3
           bundle exec rails db:prepare
           bundle exec rake docs:generate
           aglio -i doc/api/index.apib --theme-template triple -o output.html
-          cat output.html
+          cat api_doc.html
           aws s3 sync . s3://blog-api-docs --exclude "*" --include "output.html"
