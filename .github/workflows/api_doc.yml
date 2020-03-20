@@ -44,7 +44,7 @@ jobs:
           if [ "$GITHUB_REF" == "master" ]; then
             echo "##[set-output name=name;]api_doc"
           fi
-          if [ "$GITHUB_REF" == "dev" ]; then
+          if [ "$GITHUB_REF" == "actions-test" ]; then
             echo "##[set-output name=name;]dev_api_doc"
           fi
         id: api_doc
