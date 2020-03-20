@@ -41,13 +41,10 @@ jobs:
           sudo apt-get -yqq install libpq-dev
       - name: Set api doc file name
         run: |
-          echo "===============${GITHUB_REF#refs/heads/} ppppppppp"
           if [ "${GITHUB_REF#refs/heads/}" == "master" ]; then
-            echo "=========action master"
             echo "##[set-output name=name;]api_doc.html"
           fi
           if [ "${GITHUB_REF#refs/heads/}" == "actions-test" ]; then
-            echo "=========action test"
             echo "##[set-output name=name;]dev_api_doc.html"
           fi
         id: api_doc
@@ -65,6 +62,6 @@ jobs:
           bundle exec rspec
           npm install -g aglio
           bundle exec rake docs:generate
-          aglio -i doc/api/index.apib --theme-template triple -o api_doc.html
-          aws s3 sync . s3://blog-api-docs --exclude "*" --include "api_doc.html"
+          aglio -i doc/api/index.apib --theme-template triple -o ${{ steps.api_doc.name }}
+          aws s3 sync . s3://blog-api-docs --exclude "*" --include "${{ steps.api_doc.name }}"
 
