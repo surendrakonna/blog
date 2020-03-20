@@ -40,15 +40,14 @@ jobs:
         run: |
           sudo apt-get -yqq install libpq-dev
       - name: Set api doc file name
-        shell: bash
-        - run: |
-           if [ "$GITHUB_REF" == "master" ]; then
-              echo "##[set-output name=name;]api_doc"
-           fi
-           if [ "$GITHUB_REF" == "dev" ]; then
-              echo "##[set-output name=name;]dev_api_doc"
-           fi
-         id: api_doc
+        run: |
+          if [ "$GITHUB_REF" == "master" ]; then
+            echo "##[set-output name=name;]api_doc"
+          fi
+          if [ "$GITHUB_REF" == "dev" ]; then
+            echo "##[set-output name=name;]dev_api_doc"
+          fi
+        id: api_doc
       - name: Build and run tests
         env:
           RAILS_ENV: test
