@@ -40,8 +40,8 @@ jobs:
         run: |
           sudo apt-get -yqq install libpq-dev
       - name: Set api doc file name
-        run: echo "===============${GITHUB_REF} ppppppppp"
         run: |
+          echo "===============${GITHUB_REF} ppppppppp"
           if [ "${GITHUB_REF}" == "master" ]; then
             echo "=========action master"
             echo "##[set-output name=name;]api_doc.html"
