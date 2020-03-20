@@ -41,12 +41,12 @@ jobs:
           sudo apt-get -yqq install libpq-dev
       - name: Set api doc file name
         run: |
-          echo "===============${GITHUB_REF} ppppppppp"
-          if [ "${GITHUB_REF}" == "master" ]; then
+          echo "===============${GITHUB_REF#refs/heads/} ppppppppp"
+          if [ "${GITHUB_REF#refs/heads/}" == "master" ]; then
             echo "=========action master"
             echo "##[set-output name=name;]api_doc.html"
           fi
-          if [ "${GITHUB_REF}" == "actions-test" ]; then
+          if [ "${GITHUB_REF#refs/heads/}" == "actions-test" ]; then
             echo "=========action test"
             echo "##[set-output name=name;]dev_api_doc.html"
           fi
