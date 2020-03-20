@@ -1,5 +1,10 @@
 name: API Documentation
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - master
+      - dev
+      - actions-test
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -34,6 +39,16 @@ jobs:
       - name: Install PostgreSQL 11 client
         run: |
           sudo apt-get -yqq install libpq-dev
+      - name: Set api doc file name
+        shell: bash
+        - run: |
+           if [ "$GITHUB_REF" == "master" ]; then
+              echo "##[set-output name=name;]api_doc"
+           fi
+           if [ "$GITHUB_REF" == "dev" ]; then
+              echo "##[set-output name=name;]dev_api_doc"
+           fi
+         id: api_doc
       - name: Build and run tests
         env:
           RAILS_ENV: test
@@ -47,6 +62,7 @@ jobs:
           bundle exec rspec
           npm install -g aglio
           bundle exec rake docs:generate
+          echo "=====${{ steps.api_doc.name }}===="
           aglio -i doc/api/index.apib --theme-template triple -o api_doc.html
           aws s3 sync . s3://blog-api-docs --exclude "*" --include "api_doc.html"
 
