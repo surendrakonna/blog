@@ -40,6 +40,7 @@ jobs:
         run: |
           sudo apt-get -yqq install libpq-dev
       - name: Set api doc file name
+        - run: "===============${GITHUB_REF}ppppppppp"
         run: |
           if [ "${GITHUB_REF}" == "master" ]; then
             echo "=========action master"
@@ -57,13 +58,13 @@ jobs:
           DB_USER: postgres
           DB_PASS: postgres
         run: |
+          echo "=====${{ steps.api_doc.name }} ===="
           gem install bundler:1.17.2
           bundle install --jobs 4 --retry 3
           bundle exec rake db:drop db:create db:schema:load
           bundle exec rspec
           npm install -g aglio
           bundle exec rake docs:generate
-          echo "=====${{ steps.api_doc.name }} ===="
           aglio -i doc/api/index.apib --theme-template triple -o api_doc.html
           aws s3 sync . s3://blog-api-docs --exclude "*" --include "api_doc.html"
 
