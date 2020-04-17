@@ -2,7 +2,7 @@ name: API Documentation
 on:
   push:
     branches:
-      - master
+      - dev
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -51,4 +51,5 @@ jobs:
           npm install -g aglio
           bundle exec rake docs:generate
           aglio -i doc/api/index.apib --theme-template triple -o api_doc.html
-          aws s3 sync . s3://blog-api-docs --exclude "*" --include "api_doc.html"
+          aws s3 sync . s3://dev-blog-api-docs --exclude "*" --include "api_doc.html"
+
