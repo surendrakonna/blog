@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   has_secure_password
 
-  has_many :articles
+  has_many :articles, foreign_key: :author_id
 
   validates :email, presence: true, email: true, uniqueness: true
   validates :password, confirmation: true, length: { minimum: 6  }, on: :create
